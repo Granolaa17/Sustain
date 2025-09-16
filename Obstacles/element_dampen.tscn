@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0m7pkf2g3kvd"]
+
+[ext_resource type="Script" uid="uid://b4qcgj30i658d" path="res://Obstacles/element_dampen.gd" id="1_vilcq"]
+[ext_resource type="Texture2D" uid="uid://ceammjnpec7ci" path="res://assets/earth.png" id="2_pw4h7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2utw3"]
+radius = 905.16
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pw4h7"]
+size = Vector2(49, 45)
+
+[node name="Element_Dampen" type="Area2D"]
+script = ExtResource("1_vilcq")
+
+[node name="Dampen_Range" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dampen_Range"]
+shape = SubResource("CircleShape2D_2utw3")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_top = -22.0
+offset_right = 24.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_pw4h7")
+expand_mode = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pw4h7")
+debug_color = Color(0.97318, 0, 0.435825, 0.42)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

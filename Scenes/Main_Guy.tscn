@@ -1,0 +1,58 @@
+[gd_scene load_steps=11 format=3 uid="uid://bu6i0o1ypq6lv"]
+
+[ext_resource type="Script" uid="uid://dbmhsbtfdw77q" path="res://CharacterBody2D.gd" id="1_lhqgf"]
+[ext_resource type="Texture2D" uid="uid://i6el6r36j2ka" path="res://assets/idle_sprite1.png" id="2_16ppo"]
+[ext_resource type="Shader" uid="uid://bxtbxfy7rpsic" path="res://Scenes/main_guy.gdshader" id="2_rqyx3"]
+[ext_resource type="Script" uid="uid://rb5n6j8g5sb2" path="res://Scenes/PointLight2D.gd" id="4_8jkgf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_02tnt"]
+size = Vector2(20, 42)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t0ei3"]
+shader = ExtResource("2_rqyx3")
+shader_parameter/rgb = Vector3(0.031, 0.05, 0.188)
+
+[sub_resource type="Animation" id="Animation_36hvt"]
+resource_name = "default"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ju8ej"]
+_data = {
+&"default": SubResource("Animation_36hvt")
+}
+
+[sub_resource type="Gradient" id="Gradient_a66s4"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yli4f"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_a66s4")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.697248, 0.233945)
+
+[node name="Main_Guy" type="CharacterBody2D"]
+position = Vector2(248, 356)
+script = ExtResource("1_lhqgf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_02tnt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_t0ei3")
+position = Vector2(3, -8)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_16ppo")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ju8ej")
+}
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(1.96901, 1.23671)
+color = Color(0.863538, 0.781712, 0.500311, 1)
+energy = 0.0
+texture = SubResource("GradientTexture2D_yli4f")
+texture_scale = 7.85
+script = ExtResource("4_8jkgf")

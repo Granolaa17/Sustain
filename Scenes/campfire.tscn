@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3kp5e5ftsdqn"]
+
+[sub_resource type="Curve" id="Curve_fcpkl"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.926966, 0.197802), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_ibfkp"]
+offsets = PackedFloat32Array(0, 0.246667, 0.64, 0.926667, 1)
+colors = PackedColorArray(0.994617, 0.197143, 3.85046e-07, 1, 0.923426, 0.491079, 0, 1, 0.927428, 0.696687, 0, 1, 0, 0, 0, 1, 0.0352941, 0.0352941, 0.0352941, 0)
+
+[node name="CPUParticles2D" type="CPUParticles2D"]
+visible = false
+position = Vector2(0, 1)
+amount = 2000
+emission_shape = 1
+emission_sphere_radius = 10.0
+gravity = Vector2(0, -100)
+radial_accel_min = -20.0
+radial_accel_max = -10.0
+scale_amount_min = 0.5
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_fcpkl")
+color_ramp = SubResource("Gradient_ibfkp")

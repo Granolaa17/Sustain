@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctooyej4qjd8w"]
+
+[ext_resource type="Texture2D" uid="uid://b7de722r2wach" path="res://assets/Earth_platform.png" id="1_cib74"]
+[ext_resource type="Script" uid="uid://ckkrh44p1qdme" path="res://earth_platform.gd" id="1_racgs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v35i6"]
+size = Vector2(66, 18)
+
+[node name="Earth_platform" type="RigidBody2D"]
+position = Vector2(77, 15)
+gravity_scale = 0.0
+sleeping = true
+lock_rotation = true
+freeze = true
+script = ExtResource("1_racgs")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -33.0
+offset_top = -9.0
+offset_right = 33.0
+offset_bottom = 9.0
+texture = ExtResource("1_cib74")
+expand_mode = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_v35i6")

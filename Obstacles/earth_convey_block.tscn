@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://cw0mx38c2oe3i"]
+
+[ext_resource type="Script" uid="uid://ccwfyfyk1u1hx" path="res://Obstacles/earth_convey_block.gd" id="1_mg2ad"]
+[ext_resource type="Texture2D" uid="uid://ceammjnpec7ci" path="res://assets/earth.png" id="2_sjx8w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e3727"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qn5qs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mg2ad"]
+
+[node name="Earth_Convey_Block" type="Node2D"]
+script = ExtResource("1_mg2ad")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+gravity_scale = 0.0
+sleeping = true
+lock_rotation = true
+freeze = true
+freeze_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+scale = Vector2(3.3886, 1.78899)
+shape = SubResource("RectangleShape2D_e3727")
+
+[node name="TextureRect" type="TextureRect" parent="RigidBody2D"]
+offset_left = -34.0
+offset_top = -18.0
+offset_right = 34.0
+offset_bottom = 18.0
+texture = ExtResource("2_sjx8w")
+expand_mode = 2
+
+[node name="Point_A" type="Area2D" parent="."]
+position = Vector2(-44.01, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Point_A"]
+shape = SubResource("RectangleShape2D_qn5qs")
+debug_color = Color(2.11775e-06, 0.640785, 0.344589, 0.42)
+
+[node name="Point_B" type="Area2D" parent="."]
+position = Vector2(158, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Point_B"]
+shape = SubResource("RectangleShape2D_mg2ad")
+debug_color = Color(0.989781, 0, 0.286363, 0.42)
+
+[connection signal="body_entered" from="Point_A" to="." method="_on_point_a_body_entered"]
+[connection signal="body_entered" from="Point_B" to="." method="_on_point_b_body_entered"]

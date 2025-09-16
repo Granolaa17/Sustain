@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://diqsye80pjg3f"]
+
+[ext_resource type="Script" uid="uid://cphb40rs8f50x" path="res://Scenes/wood_spear.gd" id="1_3uta5"]
+[ext_resource type="Texture2D" uid="uid://dam7qvidsi465" path="res://assets/Wood_Spear.png" id="2_3v0r7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4r10i"]
+size = Vector2(46, 8)
+
+[node name="Wood_Spear" type="RigidBody2D"]
+position = Vector2(48, 14)
+collision_layer = 2
+collision_mask = 2
+mass = 0.01
+gravity_scale = 0.0
+script = ExtResource("1_3uta5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(21, 9)
+shape = SubResource("RectangleShape2D_4r10i")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -2.0
+offset_top = -5.0
+offset_right = 42.0
+offset_bottom = 17.0
+scale = Vector2(1.05602, 0.801036)
+texture = ExtResource("2_3v0r7")
+expand_mode = 2
+
+[connection signal="collision" from="." to="." method="_on_collision"]

@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://co11g2vhtd11n"]
+
+[ext_resource type="Script" uid="uid://cuscx8f7xgxvu" path="res://Obstacles/hydro_plant.gd" id="1_3566v"]
+[ext_resource type="Script" uid="uid://b3m1rt4k0vnso" path="res://hydro_plant_platform.gd" id="2_hbed1"]
+[ext_resource type="Texture2D" uid="uid://dam7qvidsi465" path="res://assets/Wood_Spear.png" id="3_86l2b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oblcl"]
+size = Vector2(64, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rh7a4"]
+size = Vector2(105, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ve3ug"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_3566v")
+
+[node name="hydro_plant_platform" type="RigidBody2D" parent="."]
+position = Vector2(-1, -1)
+mass = 0.01
+gravity_scale = 0.0
+sleeping = true
+lock_rotation = true
+freeze = true
+freeze_mode = 1
+script = ExtResource("2_hbed1")
+
+[node name="TextureRect" type="TextureRect" parent="hydro_plant_platform"]
+offset_left = -32.0
+offset_top = -22.0
+offset_right = 32.0
+offset_bottom = 10.0
+texture = ExtResource("3_86l2b")
+expand_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hydro_plant_platform"]
+shape = SubResource("RectangleShape2D_oblcl")
+debug_color = Color(0.276962, 0.631805, 1.34766e-06, 0.42)
+
+[node name="water_detection" type="Area2D" parent="hydro_plant_platform"]
+position = Vector2(-1, -15)
+
+[node name="water_collison" type="CollisionShape2D" parent="hydro_plant_platform/water_detection"]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_rh7a4")
+debug_color = Color(0.320136, 0.523682, 0.898871, 0.42)
+
+[node name="stopping point" type="Area2D" parent="."]
+position = Vector2(0, -85)
+
+[node name="Stopping_collision" type="CollisionShape2D" parent="stopping point"]
+shape = SubResource("RectangleShape2D_ve3ug")
+debug_color = Color(0.975807, 0, 0.416634, 0.42)
+
+[connection signal="body_entered" from="stopping point" to="hydro_plant_platform" method="_on_stopping_point_body_entered"]

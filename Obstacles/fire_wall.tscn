@@ -1,0 +1,103 @@
+[gd_scene load_steps=15 format=3 uid="uid://btef0mfaytqlj"]
+
+[ext_resource type="Script" uid="uid://cilj5wl7aeq10" path="res://Obstacles/fire_wall.gd" id="1_xsf7w"]
+[ext_resource type="Texture2D" uid="uid://bodmeaup8ygeu" path="res://assets/fire.png" id="2_3nmk5"]
+[ext_resource type="Shader" uid="uid://dfty80yqmh0x0" path="res://Scenes/Fire_Wall.gdshader" id="2_tbrpl"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sgf3x"]
+radius = 2.0
+height = 88.0
+
+[sub_resource type="Gradient" id="Gradient_7io80"]
+colors = PackedColorArray(0.756659, 0.178481, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_etafr"]
+noise_type = 0
+frequency = 0.032
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6vd0a"]
+seamless = true
+seamless_blend_skirt = 0.675
+bump_strength = 32.0
+color_ramp = SubResource("Gradient_7io80")
+noise = SubResource("FastNoiseLite_etafr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0i7rg"]
+shader = ExtResource("2_tbrpl")
+shader_parameter/noise = SubResource("NoiseTexture2D_6vd0a")
+shader_parameter/anim_speed = 0.3
+
+[sub_resource type="Curve" id="Curve_7j07u"]
+_data = [Vector2(0.107, 0.989), 0.0, 0.0, 0, 0, Vector2(0.848315, 0.637363), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_wfy5v"]
+offsets = PackedFloat32Array(0, 0.173333, 1)
+colors = PackedColorArray(1, 0.196078, 0.0901961, 1, 1, 0.423529, 0, 1, 0.68442, 0.436018, 1.92523e-07, 1)
+
+[sub_resource type="Gradient" id="Gradient_o03d4"]
+offsets = PackedFloat32Array(0.45082, 1)
+colors = PackedColorArray(0.847631, 0.340522, 0.0671552, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qm4ut"]
+noise_type = 0
+frequency = 0.0001
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cqbq0"]
+color_ramp = SubResource("Gradient_o03d4")
+noise = SubResource("FastNoiseLite_qm4ut")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jqekb"]
+shader = ExtResource("2_tbrpl")
+shader_parameter/noise = SubResource("NoiseTexture2D_cqbq0")
+shader_parameter/anim_speed = 0.5
+
+[node name="Fire_Wall" type="Area2D"]
+visible = false
+script = ExtResource("1_xsf7w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_sgf3x")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_0i7rg")
+offset_left = -5.0
+offset_top = -43.0
+offset_right = 4.0
+offset_bottom = 46.0
+texture = ExtResource("2_3nmk5")
+expand_mode = 1
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="."]
+visible = false
+position = Vector2(0, 48)
+amount = 560
+lifetime = 0.8
+speed_scale = 0.3
+randomness = 0.4
+lifetime_randomness = 0.3
+emission_shape = 1
+emission_sphere_radius = 7.0
+gravity = Vector2(0, -100)
+radial_accel_max = 100.0
+scale_amount_min = 0.5
+scale_amount_curve = SubResource("Curve_7j07u")
+color_ramp = SubResource("Gradient_wfy5v")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+material = SubResource("ShaderMaterial_jqekb")
+position = Vector2(0, -16)
+amount = 425
+lifetime = 1.5
+speed_scale = 0.3
+randomness = 0.38
+lifetime_randomness = 0.3
+emission_shape = 3
+emission_rect_extents = Vector2(4.71, 34.09)
+gravity = Vector2(0, 480)
+radial_accel_min = -20.0
+scale_amount_min = 0.5
+scale_amount_curve = SubResource("Curve_7j07u")
+color_ramp = SubResource("Gradient_wfy5v")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
